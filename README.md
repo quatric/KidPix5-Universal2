@@ -4,6 +4,8 @@ Runs KID PIX 5 — The S.T.E.A.M. Edition (5.0.3, build 252) natively on Apple
 silicon by statically recompiling its x86_64 executable to arm64 and shipping
 both slices in one Universal 2 binary. No Rosetta needed.
 
+You can download the compiled DMG on MacSerialJunkie or MacBB.
+
 ## How it works
 
 - `tools/lift.py` disassembles every x86_64 function (with capstone) in the
