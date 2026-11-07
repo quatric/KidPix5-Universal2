@@ -1,0 +1,5 @@
+{"main": "orig/KID PIX.app/Contents/MacOS/KID PIX",
+ "libs": [["orig/KID PIX.app/Contents/Frameworks/zUIKit.framework/Versions/A/zUIKit", "0x200000000"],
+          ["orig/KID PIX.app/Contents/Frameworks/SMKCheckForUpdates.framework/Versions/A/SMKCheckForUpdates", "0x210000000"],
+          ["orig/libc++.x86_64.dylib", "0x220000000",
+           {"native_tbd": "usr/lib/libc++abi.tbd", "replaces": ["/usr/lib/libc++.1.dylib"]}]]}

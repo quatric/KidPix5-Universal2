@@ -1,0 +1,30 @@
+#!/bin/sh
+# Runs after MacKiev's KIDPIX.pkg has installed KID PIX.app. Puts the
+# Universal 2 executable and Info.plist from the staging folder into the app,
+# then re-signs the app bundle ad hoc (its MacKiev signature covers the old
+# executable; macOS will not run modified arm64 code under a broken signature).
+#   $3 = target volume root
+STAGE="$3/private/tmp/kidpix5-universal2"
+APP="$3/Applications/KID PIX.app"
+
+log() { /usr/bin/logger -p install.info "KID PIX Universal 2: $*"; }
+
+if [ ! -d "$APP" ] || [ ! -f "$STAGE/KID PIX" ]; then
+	log "missing $APP or staged files; leaving the app unchanged"
+	rm -rf "$STAGE"
+	exit 0
+fi
+
+E="$APP/Contents/MacOS/KID PIX"
+rm -f "$E" && cp "$STAGE/KID PIX" "$E" && chmod 755 "$E"
+cp "$STAGE/Info-U2B.plist" "$APP/Contents/Info.plist"
+chmod 644 "$APP/Contents/Info.plist"
+rm -rf "$STAGE"
+
+if OUT=$(/usr/bin/codesign --force --sign - "$APP" 2>&1); then
+	log "installed and signed"
+else
+	log "codesign failed: $OUT"
+	exit 1
+fi
+exit 0
